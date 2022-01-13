@@ -20,6 +20,19 @@
       width: 100%;
       height: 100%;
     }
+
+    .text {
+      height: 32px;
+      width: 120px;
+      font-size: 100%;
+      position: absolute;
+      left: 0;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      margin: auto;
+      z-index: 999;
+    }
     
     .container>button {
       height: 32px;
@@ -70,6 +83,7 @@
     var urlRoot = './img/';
     var indexRange = [0, 299];
     var maxLength = indexRange[1] - indexRange[0] + 1;
+    var showTextRange = [100, 200];
     // loading 
     var eleContainer = document.getElementById('container');
     var eleLoading = document.getElementById('loading');
@@ -109,14 +123,19 @@
             eleContainer.removeChild(store[index - 1]);
           }
           eleContainer.appendChild(store[index]);
+          if (index === showTextRange[0]) {
+            eleContainer.insertAdjacentHTML('beforeEnd', '<div class="text">Hello!</div>');
+          }
+          if (index === showTextRange[1]) {
+            eleContainer.removeChild(eleContainer.lastChild);
+          }
           //序列增加
           index++;
           //如果超过最大限制
           if (index <= indexRange[1]) {
             setTimeout(step, 42);
           } else {
-            //本段播放结束回调
-            //我这里就放一个重新播放的按钮
+            //本段播放结束
             eleContainer.insertAdjacentHTML('beforeEnd', '<button onclick="play()">replay</button>');
           }
         };
