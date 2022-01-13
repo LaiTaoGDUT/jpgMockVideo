@@ -9,13 +9,6 @@
 </head>
 
 <body>
-  <p>尝试自动播放</p>
-  <div>
-    <video class="video0" width="400" height="200"
-    x5-playsinline="" playsinline="" :src="videoUrl" webkit-playsinline="" x5-video-player-type="h5"
-    x-webkit-airplay="true" :loop="false" preload="auto" controls
-  ></video>
-  </div>
   <p>点击回调中先load再延迟播放</p>
   <div>
     <video class="video1" width="400" height="200"
@@ -36,17 +29,6 @@
   <button class="button2">播放</button>
 </body>
 <script>
-    document.addEventListener('DOMContentLoaded', () => {
-      const video0 = document.querySelector('.video0');
-      video0.src = 'https://media.w3.org/2010/05/sintel/trailer.mp4';
-      video0.play()
-      .then(_ => {
-        console.log('Video0 playback started');
-      })
-      .catch(e => {
-        alert(`尝试自动播放失败:${e}`);
-      })
-    });
 
   const video1 = document.querySelector('.video1');
   const button1 = document.querySelector('.button1');
