@@ -84,6 +84,9 @@
     var indexRange = [0, 299];
     var maxLength = indexRange[1] - indexRange[0] + 1;
     var showTextRange = [100, 200];
+    var text = document.createElement('div');
+    text.classList = ['text'];
+    text.innerText = 'Hello!';
     // loading 
     var eleContainer = document.getElementById('container');
     var eleLoading = document.getElementById('loading');
@@ -124,10 +127,10 @@
           }
           eleContainer.appendChild(store[index]);
           if (index === showTextRange[0]) {
-            eleContainer.insertAdjacentHTML('beforeEnd', '<div class="text">Hello!</div>');
+            eleContainer.appendChild(text);
           }
           if (index === showTextRange[1]) {
-            eleContainer.removeChild(eleContainer.lastChild);
+            eleContainer.removeChild(text);
           }
           //序列增加
           index++;
