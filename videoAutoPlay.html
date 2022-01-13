@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <p>尝试自动播放</p>
+  <div>
+    <video class="video0" width="400" height="200"
+    x5-playsinline="" playsinline="" :src="videoUrl" webkit-playsinline="" x5-video-player-type="h5"
+    x-webkit-airplay="true" :loop="false" preload="auto" controls
+  ></video>
+  </div>
+  <p>点击回调中先load再延迟播放</p>
+  <div>
+    <video class="video1" width="400" height="200"
+    x5-playsinline="" playsinline="" webkit-playsinline="" x5-video-player-type="h5"
+    x-webkit-airplay="true" :loop="false" preload="auto" controls
+  ></video>
+  <p>延迟 <input type="number" class="input1"> 秒</p>
+  <button class="button1">播放</button>
+  </div>
+  <p>点击回调中直接延迟播放</p>
+  <div>
+    <video class="video2" width="400" height="200"
+    x5-playsinline="" playsinline="" webkit-playsinline="" x5-video-player-type="h5"
+    x-webkit-airplay="true" :loop="false" preload="auto" controls
+  ></video>
+  </div>
+  <p>延迟 <input type="number" class="input2"> 秒</p>
+  <button class="button2">播放</button>
+</body>
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const video0 = document.querySelector('.video0');
+      video0.src = 'https://media.w3.org/2010/05/sintel/trailer.mp4';
+      video0.play()
+      .then(_ => {
+        console.log('Video0 playback started');
+      })
+      .catch(e => {
+        alert(`尝试自动播放失败:${e}`);
+      })
+    });
+
+  const video1 = document.querySelector('.video1');
+  const button1 = document.querySelector('.button1');
+  const input1 = document.querySelector('.input1');
+  button1.addEventListener('click', onButton1Click);
+
+  const video2 = document.querySelector('.video2');
+  const button2 = document.querySelector('.button2');
+  const input2 = document.querySelector('.input2');
+  button2.addEventListener('click', onButton2Click);
+
+  async function onButton1Click() {
+    // This will allow us to play video later...
+    video1.load();
+    fetchVideo1AndPlay();
+  }
+
+  function onButton2Click() {
+    // This will allow us to play video later...
+    // video2.load();
+    fetchVideo2AndPlay();
+  }
+
+  async function fetchVideo1AndPlay() {
+    new Promise((resolve) => {
+      setTimeout(() => {
+        resolve('https://media.w3.org/2010/05/sintel/trailer.mp4');
+      }, input1.value * 1000)
+    })
+    .then(src => {
+      video1.src = src;
+      return video1.play();
+    })
+    .then(_ => {
+      alert('Video1 playback started');
+    })
+    .catch(e => {
+      alert(`Video1 playback failed:${e}`);
+    })
+  }
+
+  function fetchVideo2AndPlay() {
+    new Promise((resolve) => {
+      setTimeout(() => {
+        resolve('https://media.w3.org/2010/05/sintel/trailer.mp4');
+      }, input2.value * 1000)
+    })
+    .then(src => {
+      video2.src = src;
+      return video2.play();
+    })
+    .then(_ => {
+      alert('Video2 playback started');
+    })
+    .catch(e => {
+      alert(`Video2 playback failed:${e}`);
+    })
+  }
+</script>
+</html>
